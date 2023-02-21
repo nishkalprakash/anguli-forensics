@@ -63,7 +63,7 @@ class Parallel:
 
 from pymongo import MongoClient, collection
 
-class Dataset:
+class Datasets:
     """
     In: Name of Dataset
     Out: Obj

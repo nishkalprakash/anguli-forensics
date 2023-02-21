@@ -2,7 +2,7 @@
 
 # from minutiae_extractor import extract_minutiae_vector as emv
 from pathlib import Path
-from BI import Dataset
+from BI import Datasets
 
 def extract_meta_dict(meta_path):
     """
@@ -52,10 +52,10 @@ def extract_meta_dict(meta_path):
 if __name__ == "__main__":
     from pymongo import MongoClient as mc
     # prefix = 
-    from BI import Dataset, Parallel
+    from BI import Datasets, Parallel
 
     dsn = "Anguli_200k_1M"
-    ds=Dataset()
+    ds=Datasets()
     coll=ds.connect(dsn)
     
     meta_path=ds.path/"Meta Info"
