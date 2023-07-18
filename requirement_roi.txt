@@ -1,0 +1,7 @@
+# Requirements for ROI extraction
+opencv-python
+numpy
+scikit-learn
+matplotlib
+fingerprint_enhancer
+pymongo

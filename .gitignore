@@ -132,3 +132,4 @@ dmypy.json
 # Anguli Binaries
 Anguli-MinGw/
 Anguli_test/
+dataset/
