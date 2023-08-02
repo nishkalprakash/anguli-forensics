@@ -34,17 +34,20 @@ class Parallel:
     def batcher(self,doc):
         if doc:
             self.doc_list.append(doc)
-            self.ctr += 1
+            # self.ctr += 1
             self.done += 1
-            if self.ctr == self.batch_size:
-                self.ctr = 0
+            if len(self.doc_list) >= self.batch_size:
+                # self.ctr = 0
                 print(f"{self.done}/{len(self.paths)} documents processed")
+                # if len(self.doc_list):
                 dc=self.doc_list[:]
                 self.doc_list = []
                 return dc
-        
-            if len(self.doc_list):
-                return self.doc_list
+            return None
+            # if len(self.doc_list):
+            #     dc=self.doc_list[:]
+            #     self.doc_list = []
+            #     return dc
 
     def __call__(
         self, atomic_function, paths, batch_size=100, chunksize=10, free_core=1
@@ -56,10 +59,18 @@ class Parallel:
         if not self.debug:
             with Pool(cpu_count() - free_core - 1) as p:
                 for doc in p.imap(atomic_function, paths, chunksize):
-                    yield self.batcher(doc)                        
+                    if (dc:=self.batcher(doc)):
+                        yield dc
+                if len(dc:=self.doc_list[:]):
+                    self.doc_list = []
+                    yield dc
         else:
             for path in paths:
-                yield self.batcher(atomic_function(path))
+                if (dc:=self.batcher(atomic_function(path))):
+                    yield dc
+            if len(dc:=self.doc_list[:]):
+                self.doc_list = []
+                yield dc
 
 from pymongo import MongoClient, collection
 

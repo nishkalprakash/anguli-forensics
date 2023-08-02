@@ -4,4 +4,5 @@ numpy
 scikit-learn
 matplotlib
 fingerprint_enhancer
+fingerprint_feature_extractor
 pymongo

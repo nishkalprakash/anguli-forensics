@@ -1,37 +1,47 @@
 from BI import Parallel
-from minutiae_extractor import extract_minutiae_vector as emv
+from minutiae_extractor_utkarsh import extract_minutiae_vector as emv
 
 if __name__ == "__main__":
     from pathlib import Path
-    from pymongo import MongoClient as mc
+    from pymongo import MongoClient as mc, UpdateOne, ASCENDING
 
-    coll='Anguli_test'
-    base='Anguli_test'
-    ext='*.tiff'
+    coll='FVC2006'
+    home=Path("D:/FVC Fingerprint Datasets/")
+    base=Path("D:/FVC Fingerprint Datasets/FVC2006/Dbs/DB2_A")
+    ext='*.bmp'
     db_client = mc("10.5.18.101")["BI"][coll]
-    db_client.create_index('path')
-    all_paths_set_file=Path(f"{base}/{base}_file_list.txt")
+    db_client.create_index([('path',ASCENDING)],unique=True)
+    all_paths_set_file=base/f"{coll}_file_list.txt"
     if all_paths_set_file.exists():
         all_paths_set = set(Path(all_paths_set_file).read_text().split('\n'))
     else:
-        def create_all_paths(base="Anguli_200k_1M",ext="*.tiff"):
+        def get_all_paths(base="Anguli_200k_1M",ext="*.tiff"):
             images = Path(base).rglob(ext)
-            all_paths = map(str,sorted(images))
-            images_str = "\n".join(all_paths)
-            Path(all_paths_set_file).write_text(images_str)
+            all_paths = map(Path.as_posix,sorted(images))
+            # images_str = "\n".join(all_paths)
+            # Path(all_paths_set_file).write_text(images_str)
             return set(all_paths)
-        all_paths_set = create_all_paths(base,ext)
-    proc_set = {i['path'] for i in db_client.find({},{'path':1,'_id':0})}
+        all_paths_set = get_all_paths(base,ext)
+    proc_set = {(home/i['path']).as_posix() for i in db_client.find({ "mv_25": { "$exists": True } },{'path':1,'_id':0})}
     to_process = all_paths_set - proc_set
+    print("to_process -> ",len(to_process))
     # for p in to_process:
     #     print(db_client.insert_one(emv(p)))
 
-    ll=Parallel()
-    for doc_list in ll(emv,to_process,100,10,1):
+    ll=Parallel(debug=False)
+    for doc_list in ll(emv,to_process):
         try:
-            result=db_client.insert_many(doc_list,ordered=False)
-        except:
-            print(f"Inserted - {len(result.inserted_ids)}")
+            # for doc in doc_list:
+                # print(doc['path'])
+            if len(doc_list)==0:
+                continue
+            # result=db_client.insert_many(doc_list,ordered=False)
+            ## update existing document with new minutiae vector using path
+            result=db_client.bulk_write([UpdateOne({'path':doc['path']},{'$set':{'mv_25':doc['mv_25']}}) for doc in doc_list])
+            # print(f"Inserted - {len(result.inserted_ids)}")
+        except Exception as e:
+            print(str(e))
+            print("Something went wrong, unable to insert")
 
     # import re
     # """
