@@ -1,4 +1,4 @@
-## CODE CREATER: Nishkal Prakash (nishkal@iitkgp.ac.in)
+## CODE CREATER: Nishkal Prakash (nishkal@iitkgp.ac.in) & Rakesh Krishna (rakhikrish1319@gmail.com)
 ## Steps to reproduce
 ## run in terminal
 ## conda create -n roi python -y
@@ -43,19 +43,26 @@ if __name__ == "__main__":
                 #     cv2.imwrite(out_path.as_posix(),cropped_img)
                 #     print('.',end='')
 
-    base_path = Path("D:/FVC Fingerprint Datasets")
+    base_path = Path(r"D:\fvc_fingerprint_datasets")
     input_paths=[
-        base_path/"FVC2006/Dbs/DB2_A",
-        base_path/"FVC2004/Dbs/DB2_A",
+        base_path/r"ASRA\FVC2006_DB2A_ASRA_Auto",
+        base_path/r"ASRA\FVC2006_DB2B_ASRA_Auto",
+        base_path/r"ASRA\FVC2006_DB3A_ASRA_Auto",
+        base_path/r"ASRA\FVC2006_DB3B_ASRA_Auto",
+        # base_path/"FVC2004/Dbs/DB2_A",
     ]
     output_paths=[
-        base_path/"FVC2006/Dbs/DB2_A_ROI",
-        base_path/"FVC2004/Dbs/DB2_A_ROI",
+        base_path/r"ASRA\FVC2006_DB2A_Aligned",
+        base_path/r"ASRA\FVC2006_DB2B_Aligned",
+        base_path/r"ASRA\FVC2006_DB3A_Aligned",
+        base_path/r"ASRA\FVC2006_DB3B_Aligned",
+        # base_path/"FVC2006/Dbs/DB2_A_ROI",
+        # base_path/"FVC2004/Dbs/DB2_A_ROI",
     ]
     ## create output paths if not exists
     for p in output_paths:
         if not p.exists():
-            p.mkdir(parents=True)
+            p.mkdir(parents=True,exist_ok=True)
     for inp, out in zip(input_paths, output_paths):
         get_roi(inp, out)
 
