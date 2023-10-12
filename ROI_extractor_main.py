@@ -45,17 +45,20 @@ if __name__ == "__main__":
 
     base_path = Path(r"D:\fvc_fingerprint_datasets")
     input_paths=[
-        base_path/r"ASRA\FVC2006_DB2A_ASRA_Auto",
-        base_path/r"ASRA\FVC2006_DB2B_ASRA_Auto",
-        base_path/r"ASRA\FVC2006_DB3A_ASRA_Auto",
-        base_path/r"ASRA\FVC2006_DB3B_ASRA_Auto",
+        base_path/r"FVC2002\Dbs\DB1_A",
+
+        # base_path/r"ASRA\FVC2006_DB2A_ASRA_Auto",
+        # base_path/r"ASRA\FVC2006_DB2B_ASRA_Auto",
+        # base_path/r"ASRA\FVC2006_DB3A_ASRA_Auto",
+        # base_path/r"ASRA\FVC2006_DB3B_ASRA_Auto",
         # base_path/"FVC2004/Dbs/DB2_A",
     ]
     output_paths=[
-        base_path/r"ASRA\FVC2006_DB2A_Aligned",
-        base_path/r"ASRA\FVC2006_DB2B_Aligned",
-        base_path/r"ASRA\FVC2006_DB3A_Aligned",
-        base_path/r"ASRA\FVC2006_DB3B_Aligned",
+        base_path/r"FVC2002\DB1_A_ROI",
+        # base_path/r"ASRA\FVC2006_DB2A_Aligned",
+        # base_path/r"ASRA\FVC2006_DB2B_Aligned",
+        # base_path/r"ASRA\FVC2006_DB3A_Aligned",
+        # base_path/r"ASRA\FVC2006_DB3B_Aligned",
         # base_path/"FVC2006/Dbs/DB2_A_ROI",
         # base_path/"FVC2004/Dbs/DB2_A_ROI",
     ]
