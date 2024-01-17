@@ -39,24 +39,24 @@ def extract_minutiae_vector(data):
         print(str(e))
         ip_path, thres=data, 20
     # if not mc("10.5.18.101")["BI"]["mv"].count_documents({'path':ip_path},limit=1):
-        ip_path=Path(ip_path).as_posix()
-        img = cv.imread(ip_path, cv.IMREAD_GRAYSCALE)
-        try:
-            fv = feature_vector(img, thres)
-        except Exception as e:
-            print(str(e))
-            fv=[]
+    ip_path=Path(ip_path).as_posix()
+    img = cv.imread(ip_path, cv.IMREAD_GRAYSCALE)
+    try:
+        fv = feature_vector(img, thres)
+    except Exception as e:
+        print(str(e))
+        fv=[]
 
-        # set ip_path to relative path from folder starting with "FVC200", by recursively removing the parent folder
-        def get_parent_path(p):
-            if p.name == '' or p.name.startswith('FVC200'):
-                return p.parent
-            else:
-                return get_parent_path(p.parent)
-        ip_path = Path(ip_path).relative_to(get_parent_path(Path(ip_path))).as_posix()
+    # set ip_path to relative path from folder starting with "FVC200", by recursively removing the parent folder
+    def get_parent_path(p):
+        if p.name == '' or p.name.startswith('FVC200'):
+            return p.parent
+        else:
+            return get_parent_path(p.parent)
+    ip_path = Path(ip_path).relative_to(get_parent_path(Path(ip_path))).as_posix()
 
-        # if ip_path.startswith('D:/FVC Fingerprint Datasets/'):
-        #     ip_path=ip_path.replace('D:/FVC Fingerprint Datasets/',"")
-        
-        doc={"path": ip_path, f"mv_{thres}": fv}
-        return doc
+    # if ip_path.startswith('D:/FVC Fingerprint Datasets/'):
+    #     ip_path=ip_path.replace('D:/FVC Fingerprint Datasets/',"")
+    
+    doc={"path": ip_path, f"mv_{thres}": fv}
+    return doc
