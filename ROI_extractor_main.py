@@ -33,7 +33,7 @@ if __name__ == "__main__":
                     if cropped_img.shape==0 or cropped_img.shape[0]==0 or cropped_img.shape[1]==0:
                         print(f"Failed for {path.parent.parent/path.name}")
                     else:
-                        cv2.imwrite(out_path.as_posix(), cropped_img)
+                        cv2.imwrite(out_path.as_posix(),cropped_img)
                         print('.',end='')
                 except:
                     print(f"Failed for {path.parent.parent/path.name}")
