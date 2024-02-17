@@ -1,7 +1,7 @@
 # Requirements for ROI extraction
 opencv-python
 numpy
-scikit-learn
+# scikit-learn
 matplotlib
 fingerprint_enhancer
 fingerprint_feature_extractor

@@ -1,5 +1,9 @@
+## This code fetches documents from MongoDB and saves each record as .mnt 
+## eg: FVC2006/DB2_A/100.mnt will have first line as 
+##      "{file_name=100} {minutia_count=60} {width=400} {height=500}" 
+## followed by 60 lines of the format "{X=100} {Y=200} {Theta=3.14159265}"
 #%% 
-from BI import Datasets
+from lib.BI import Datasets
 
 # load FVC2002 DB
 ds=Datasets("BI")

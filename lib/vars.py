@@ -2,11 +2,11 @@ from pathlib import Path
 
 
 DB_NAME = "BI"
-DB_IP = "10.5.18.101"
+DB_IP = "10.171.18.144"
 
 
 ## Change as needed
-DS_PREFIX = Path("D:/").expanduser()
+DS_PREFIX = Path("S:/").expanduser()
 
 ## List of Available datasets
 AVAIL_DS = {_.name for _ in DS_PREFIX.iterdir() if _.is_dir()}

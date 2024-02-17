@@ -1,4 +1,4 @@
-from BI import Parallel
+from lib.BI import Parallel
 from minutiae_extractor_utkarsh import extract_minutiae_vector as emv
 
 if __name__ == "__main__":

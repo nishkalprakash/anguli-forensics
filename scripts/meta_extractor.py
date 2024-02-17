@@ -1,4 +1,5 @@
 ## CODE CREATER: Nishkal Prakash (nishkal@iitkgp.ac.in)
+## Code to read meta files and add them to mongodb
 
 # from minutiae_extractor import extract_minutiae_vector as emv
 from pathlib import Path
